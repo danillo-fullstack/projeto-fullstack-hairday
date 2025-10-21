@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 
 import { scheduleNew } from "../../services/schedule-new.js"
+import { schedulesDay } from "../schedules/load.js"
 
 const form = document.querySelector('form');
 const clientName = document.querySelector('#client');
@@ -43,6 +44,10 @@ form.addEventListener('submit', async (event) => {
 
         await scheduleNew ({ id, name, when })
         alert("Agendamento realizado");
+
+        // Recarrega os agendamentos
+        await schedulesDay();
+        clientName.value = "";
     } catch (error) {
         alert("Não foi possível realizar o agendamento");
         console.log(error);
